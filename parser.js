@@ -1,3 +1,6 @@
+const babel = require('babel-core')
+const generator = require('babel-generator').default
+
 const stackMap = {
   '(': {
     match: ')',
@@ -56,9 +59,6 @@ function getArguments (fnString) {
   // if(!endI) throw new Error('impossibility')
   return fnS.slice(0, endI + 1)
 }
-
-const babel = require('babel-core')
-const generator = require('babel-generator').default
 
 function parser (fn) {
   if (typeof fn !== 'function') throw new Error(`param 'fn' error: not a function`)
