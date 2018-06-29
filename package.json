@@ -2,7 +2,7 @@
   "name": "nodecmd",
   "version": "0.0.1",
   "description": "",
-  "main": "parser.js",
+  "main": "cmd.js",
   "scripts": {
     "test": "jest"
   },
