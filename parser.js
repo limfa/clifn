@@ -22,6 +22,9 @@ const stackMap = {
 
 function getArguments (fnString) {
   let fnS
+  if(/^async\b/.test(fnString)){
+    fnString = fnString.replace(/^async\s*/, '')
+  }
   if (/^function\W/.test(fnString)) {
     const fr = /^function(?:\s+\w+)?\s*/
     fnS = fnString.replace(fr, '')
@@ -91,4 +94,3 @@ function parser (fn) {
 }
 
 module.exports = parser
-parser((abcd)=>true)

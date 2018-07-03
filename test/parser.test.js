@@ -103,3 +103,68 @@ test('complex', () => {
   const res = parser(fn)
   expect(res).toBe(`{ a, b }, [{ b: B, d, c: [z], e: { f: F } }, e], [[[[[u]]]]], ...f`)
 })
+
+test('asyncfunction', () => {
+    const fn = async()=>{}
+    const res = parser(fn)
+    expect(res).toBe('')
+})
+test('asyncfunction', () => {
+    const fn = async ()=>{}
+    const res = parser(fn)
+    expect(res).toBe('')
+})
+test('asyncfunction', () => {
+    const fn = async(aa) => { }
+    const res = parser(fn)
+    expect(res).toBe('aa')
+})
+test('asyncfunction', () => {
+    const fn = async (aa) => { }
+    const res = parser(fn)
+    expect(res).toBe('aa')
+})
+test('asyncfunction', () => {
+    const fn = async aa => { }
+    const res = parser(fn)
+    expect(res).toBe('aa')
+})
+test('asyncfunction', () => {
+    const fn = async (aa,bb) => { }
+    const res = parser(fn)
+    expect(res).toBe('aa, bb')
+})
+test('asyncfunction', () => {
+  const fn = async ({ a, b = 'c' } = { z: { x: z } } , [{ b: B, d = '"', c: [z = 2], e: { f: F = { a: { b: 1 } } } }, e = ER] , [[[[[u]]]]] , ...f) => {
+    return {}
+  }
+  const res = parser(fn)
+  expect(res).toBe(`{ a, b }, [{ b: B, d, c: [z], e: { f: F } }, e], [[[[[u]]]]], ...f`)
+})
+
+
+test('asyncfunction', () => {
+    const fn = async function() { }
+    const res = parser(fn)
+    expect(res).toBe('')
+})
+test('asyncfunction', () => {
+    const fn = async function () { }
+    const res = parser(fn)
+    expect(res).toBe('')
+})
+test('asyncfunction', () => {
+    const fn = async function(aa) { }
+    const res = parser(fn)
+    expect(res).toBe('aa')
+})
+test('asyncfunction', () => {
+    const fn = async function (aa) { }
+    const res = parser(fn)
+    expect(res).toBe('aa')
+})
+test('asyncfunction', () => {
+    const fn = async function (aa, bb) { }
+    const res = parser(fn)
+    expect(res).toBe('aa, bb')
+})
