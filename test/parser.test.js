@@ -1,10 +1,16 @@
 const assert = require('assert')
 const parser = require('../parser')
 
-test('arrowsfunction1',()=>{
+test('arrowsfunction0',()=>{
     const fn = ()=>{}
     const res = parser(fn)
     expect(res).toBe('')
+})
+
+test('arrowsfunction1',()=>{
+    const fn = (abcd)=>{}
+    const res = parser(fn)
+    expect(res).toBe('abcd')
 })
 test('arrowsfunction2',()=>{
     const fn =   (a,b)=>true
@@ -43,10 +49,15 @@ test('arrowsfunction7',()=>{
     expect(res).toBe(`{ a, b }, [{ d }, e], ...f`)
 })
 
-test('function1',()=>{
+test('function0',()=>{
     const fn = function(){}
     const res = parser(fn)
     expect(res).toBe('')
+})
+test('function1',()=>{
+    const fn = function(abcd){}
+    const res = parser(fn)
+    expect(res).toBe('abcd')
 })
 test('function2',()=>{
     const fn = function  (a,b){ return true }

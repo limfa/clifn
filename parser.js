@@ -86,7 +86,9 @@ function parser (fn) {
   }
   // console.log(JSON.stringify(ast.program.body[0].expression.params))
   doParams(ast.program.body[0].expression.params)
-  return generator(ast).code.slice(1, -8)
+  let {code} = generator(ast)
+  return /^\(/.test(code)? code.slice(1, -8) : code.slice(0,-7)
 }
 
 module.exports = parser
+parser((abcd)=>true)
