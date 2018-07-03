@@ -12,7 +12,17 @@ function main(file){
     file = argv._[0]
   }
 
-  if (argv.help){
+  if (argv.version && !file) {
+    yargs.version(true)
+    let version = '0.0.0'
+    try {
+      version = require('./package.json').version
+    } catch (ex) { }
+    console.log(version)
+    return
+  }
+  
+  if (argv.help || !file){
     yargs.version(!file)
     yargs.help(true)
     if(!file){
@@ -32,7 +42,8 @@ function main(file){
         has:(t, key)=>{
           result[key] = {}
           return true
-        } 
+        },
+        get:()=>[],
       })){[${args}] }
       result`
       let options = vm.runInContext(code, context)
@@ -47,15 +58,6 @@ function main(file){
       yargs.usage(usage)
     }
     return yargs.showHelp()
-  }
-  if(argv.version && !file){
-    yargs.version(true)
-    let version = '0.0.0'
-    try{
-      version = require('./package.json').version
-    }catch(ex){}
-    console.log(version)
-    return
   }
 
   if (file) {

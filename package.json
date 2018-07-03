@@ -1,14 +1,18 @@
 {
-  "name": "nodecmd",
+  "name": "clifn",
   "version": "0.0.1",
-  "description": "",
-  "main": "cmd.js",
+  "description": "nonintrusive command line tool for node",
+  "main": "cli.js",
   "scripts": {
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "bin":{
+    "clifn": "bin/clifn"
+  },
+  "keywords": ["cli"],
+  "author": "limfa@qq.com",
   "license": "ISC",
+  "repository": "limfa/clifn",
   "devDependencies": {
     "jest": "^23.2.0"
   },
