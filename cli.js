@@ -68,7 +68,7 @@ function main(file){
     let context = vm.createContext(argv)
     args = vm.runInContext(`with(new Proxy(this, { has:()=>true })){[${args}] }`, context)
     let res = fn(...args)
-    Promise.resolve(res).then(console.log)
+    Promise.resolve(res).then(res=>console.log(JSON.stringify(res, null, 2)))
   }
 
   function getModule(file) {
