@@ -1,6 +1,6 @@
 {
   "name": "clifn",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "nonintrusive command line tool for node",
   "main": "cli.js",
   "scripts": {

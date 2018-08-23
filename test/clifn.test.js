@@ -11,7 +11,7 @@ test('help', () => {
     expect(stdout).toBe(`clifn [command]
 
 Commands:
-  clifn <file>  execute file in command line
+  clifn <file> [<method>]  execute file in command line
 
 Options:
   --version  Show version number                                       [boolean]
@@ -62,6 +62,15 @@ test('add3Async', () => {
     expect(err).toBe(null)
     expect(stderr).toBe('')
     expect(stdout).toBe(`6
+`)
+  })
+})
+
+test('module.method', () => {
+  exec('node bin/clifn test/math complex -a1 -b=2', {cwd}, (err, stdout, stderr) => {
+    expect(err).toBe(null)
+    expect(stderr).toBe('')
+    expect(stdout).toBe(`4
 `)
   })
 })

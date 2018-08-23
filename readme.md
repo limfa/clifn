@@ -2,7 +2,7 @@
 
 nonintrusive command line tool for node
 
-只支持模块为函数
+支持模块为函数或对象都支持
 
 
 ## todo
@@ -37,4 +37,8 @@ clifn --version
 ```
 node cli test/add3 --help
 clifn test/add3 --help
+```
+
+```
+clifn test/math add -a 1 -b 2
 ```
