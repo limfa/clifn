@@ -1,4 +1,3 @@
-const assert = require('assert')
 const parser = require('../parser')
 
 test('arrowsfunction0',()=>{

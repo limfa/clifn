@@ -3,12 +3,12 @@ const path = require('path')
 const vm = require('vm')
 let yargs = require('yargs')
 
-function main(file){
+function main (file) {
   yargs.version(false)
   yargs.help(false)
   let { argv } = yargs
 
-  if(!file){
+  if (!file) {
     file = argv._[0]
   }
 
@@ -21,18 +21,18 @@ function main(file){
     console.log(version)
     return
   }
-  
-  if (argv.help || !file){
+
+  if (argv.help || !file) {
     yargs.version(!file)
     yargs.help(true)
-    if(!file){
-      yargs.command('<file>', 'execute file in command line', yargs=>{
+    if (!file) {
+      yargs.command('<file>', 'execute file in command line', yargs => {
         yargs.positional('file', {
           describe: 'a nodejs file name relative cwd',
           type: 'string'
         })
       })
-    }else{
+    } else {
       let context = vm.createContext({})
       const fn = getModule(file)
       let args = parser(fn)
@@ -48,16 +48,16 @@ function main(file){
       result`
       let options = vm.runInContext(code, context)
       yargs.options(options)
-      const usage = fn.toString().split('\n', 4).map((v, i)=>{
-        if(i === 3){
+      const usage = fn.toString().split('\n', 4).map((v, i) => {
+        if (i === 3) {
           return '...'
         }
-        if(v.length > 60) return v.slice(0, 60) + ' ...'
+        if (v.length > 60) return v.slice(0, 60) + ' ...'
         return v
       }).join('\n')
       yargs.usage(usage)
     }
-    return yargs.showHelp()
+    return yargs.showHelp('log')
   }
 
   if (file) {
@@ -68,10 +68,10 @@ function main(file){
     let context = vm.createContext(argv)
     args = vm.runInContext(`with(new Proxy(this, { has:()=>true })){[${args}] }`, context)
     let res = fn(...args)
-    Promise.resolve(res).then(res=>console.log(JSON.stringify(res, null, 2)))
+    Promise.resolve(res).then(res => console.log(JSON.stringify(res, null, 2)))
   }
 
-  function getModule(file) {
+  function getModule (file) {
     let filePath = path.join(process.cwd(), file)
     return require(filePath)
   }

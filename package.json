@@ -6,15 +6,18 @@
   "scripts": {
     "test": "jest"
   },
-  "bin":{
+  "bin": {
     "clifn": "bin/clifn"
   },
-  "keywords": ["cli"],
+  "keywords": [
+    "cli"
+  ],
   "author": "limfa@qq.com",
   "license": "ISC",
   "repository": "limfa/clifn",
   "devDependencies": {
-    "jest": "^23.2.0"
+    "jest": "^23.2.0",
+    "standard": "^11.0.1"
   },
   "dependencies": {
     "babel-core": "^6.26.3",
