@@ -16,6 +16,8 @@ nonintrusive command line tool for node
 
 * 函数上模块注释不支持显示
 
+* help 对象方法列出
+
 
 ## usage
 
