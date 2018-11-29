@@ -1,6 +1,6 @@
 {
   "name": "clifn",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "nonintrusive command line tool for node",
   "main": "cli.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "babel-core": "^6.26.3",
-    "babel-generator": "^6.26.1"
+    "babel-generator": "^6.26.1",
+    "yargs": "^12.0.5"
   }
 }
