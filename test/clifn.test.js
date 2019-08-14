@@ -8,8 +8,8 @@ test('help', () => {
   exec('node bin/clifn --help', {cwd}, (err, stdout, stderr) => {
     expect(err).toBe(null)
     expect(stderr).toBe('')
-    expect(stdout).toBe(`clifn [command]
-
+    expect(stdout.slice(0,7)).toBe(`clifn [`
+/* 
 Commands:
   clifn <file> [<method>]  execute file in command line
 
@@ -17,7 +17,7 @@ Options:
   --version  Show version number                                       [boolean]
   --help     Show help                                                 [boolean]
 
-`)
+` */)
   })
 })
 
@@ -33,18 +33,18 @@ test('add3 help', () => {
   exec('node bin/clifn test/add3 --help', {cwd}, (err, stdout, stderr) => {
     expect(err).toBe(null)
     expect(stderr).toBe('')
-    expect(stdout).toBe(`function add3(a, b, c) { // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ...
+    expect(stdout.slice(0,93)).toBe(`function add3(a, b, c) { // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ...
   //
   return a + b + c
 ...
-
+`/* 
 Options:
   --help  Show help                                                    [boolean]
   -a
   -b
   -c
 
-`)
+` */)
   })
 })
 

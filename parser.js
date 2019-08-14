@@ -20,21 +20,19 @@ const stackMap = {
   }
 }
 
-function getArguments (fnString) {
-  let fnS
-  if(/^async\b/.test(fnString)){
-    fnString = fnString.replace(/^async\s*/, '')
+function getArguments(fnString) {
+  // console.log(fnString)
+  fnString = fnString.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*/g, '')
+  let fnS = fnString.replace(
+    /^\s*(static\s+)?(async\s+)?(function\s*)?(\*\s*)?\s*/,
+    ''
+  )
+  if (/^\w+\s*=>/.test(fnS)) {
+    fnS = fnS.replace(/^\w+/, `($&)`)
+  } else if (!/^\(/.test(fnS)) {
+    fnS = fnS.replace(/^\w+\s*/, ``)
   }
-  if (/^function\W/.test(fnString)) {
-    const fr = /^function(?:\s+\w+)?\s*/
-    fnS = fnString.replace(fr, '')
-  }else {
-    if (/^\(/.test(fnString)) {
-      fnS = fnString
-    }else {
-      fnS = fnString.replace(/^\w+/, `($&)`)
-    }
-  }
+  // console.log(fnS)
   let sl = fnS.length
   // if(fnS[0]!=='(') throw new Error('impossibility')
   const stack = []
@@ -49,7 +47,8 @@ function getArguments (fnString) {
         break
       }
       curM = stack.pop()
-    }else if ((char in stackMap) &&
+    } else if (
+      char in stackMap &&
       (sm.accpet ? sm.accpet.indexOf(char) !== -1 : true) &&
       (sm.exclude ? sm.exclude.indexOf(char) === -1 : true)
     ) {
@@ -60,11 +59,14 @@ function getArguments (fnString) {
     if (char === '\\') ++i
   }
   // if(!endI) throw new Error('impossibility')
-  return fnS.slice(0, endI + 1)
+  const str = fnS.slice(0, endI + 1)
+  // console.log(str)
+  return str
 }
 
-function parser (fn) {
-  if (typeof fn !== 'function') throw new Error(`param 'fn' error: not a function`)
+function parser(fn) {
+  if (typeof fn !== 'function')
+    throw new Error(`param 'fn' error: not a function`)
   let fnString = getArguments(fn.toString())
   fnString += '=>{}'
   const { ast } = babel.transform(fnString, {
@@ -73,7 +75,7 @@ function parser (fn) {
     babelrc: false,
     highlightCode: false
   })
-  function doParams (params) {
+  function doParams(params) {
     params.forEach(v => {
       if (v.type === 'AssignmentPattern') {
         Object.assign(v, v.left)
@@ -89,8 +91,8 @@ function parser (fn) {
   }
   // console.log(JSON.stringify(ast.program.body[0].expression.params))
   doParams(ast.program.body[0].expression.params)
-  let {code} = generator(ast)
-  return /^\(/.test(code)? code.slice(1, -8) : code.slice(0,-7)
+  let { code } = generator(ast)
+  return /^\(/.test(code) ? code.slice(1, -8) : code.slice(0, -7)
 }
 
 module.exports = parser

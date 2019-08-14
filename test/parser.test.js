@@ -114,6 +114,11 @@ test('asyncfunction', () => {
     expect(res).toBe('')
 })
 test('asyncfunction', () => {
+    const fn = async a=>1
+    const res = parser(fn)
+    expect(res).toBe('a')
+})
+test('asyncfunction', () => {
     const fn = async(aa) => { }
     const res = parser(fn)
     expect(res).toBe('aa')
@@ -163,6 +168,19 @@ test('asyncfunction', () => {
     expect(res).toBe('aa')
 })
 test('asyncfunction', () => {
+    const fn = async function (aa, bb) { }
+    const res = parser(fn)
+    expect(res).toBe('aa, bb')
+})
+
+test('module', () => {
+    const m = {
+        a0(a) {},
+        a1:a=>{},
+        a2:(a,aa)=>{},
+        a3:function(a,aa){},
+        a3:function(a,aa){},
+    }
     const fn = async function (aa, bb) { }
     const res = parser(fn)
     expect(res).toBe('aa, bb')
